@@ -1,0 +1,21 @@
+<!-- projects/templates/project_detail.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ object.name }}</h2>
+<p>{{ object.description }}</p>
+<p>Duration: {{ object.duration }} days</p>
+
+<h3>Tasks</h3>
+<a href="{% url 'task-create' project_pk=object.pk %}" class="button">Add Task</a>
+<ul>
+    {% for task in object.tasks.all %}
+    <li>{{ task.name }} ({{ task.start_date }} - {{ task.end_date }})
+        <a href="{% url 'task-edit' task.pk %}">Edit</a>
+        <a href="{% url 'task-delete' task.pk %}">Delete</a>
+    </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'project-edit' object.pk %}" class="button">Edit Project</a>
+<a href="{% url 'project-delete' object.pk %}" class="button">Delete Project</a>
+{% endblock %}
